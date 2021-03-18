@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,4 +20,34 @@
         <input type="reset" value="Reset">
     </form>
 </body>
-</html>
+</html> --}}
+
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Make Payment') }}
+        </h2>
+    </x-slot>
+    <form action="make_payment" method="POST">
+        @csrf
+        <table align="center">
+            <tr>
+                <td><select id="from" name="from" required>
+                    @foreach ($data as $i)
+                        <option value= {{ $i->account_no }}>{{ $i->account_no }}</option>    
+                    @endforeach
+                </select><br></td>
+            </tr>
+            <tr>
+                <td><input type="text" placeholder="Account No." name="to" required><br></td>
+            </tr>
+            <tr>
+                <td><input type="number" name="amount" placeholder="Amount" required><br></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Pay"> <input type="reset" value="Reset"></td>
+            </tr>
+        </table>
+    </form>
+    
+</x-app-layout>
