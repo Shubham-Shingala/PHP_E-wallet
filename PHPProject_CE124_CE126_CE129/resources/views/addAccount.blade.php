@@ -19,26 +19,43 @@
 </body>
 </html> --}}
 
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Add Account') }}
-        </h2>
-    </x-slot>
+<x-guest-layout>
+    <x-jet-authentication-card>
+        <!-- <x-slot name="logo">
+            <x-jet-authentication-card-logo />
+        </x-slot> -->
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <form action="add" method="POST">
-                    @csrf
-                    <input type="text" name="account_no" max_length="14" placeholder="Account No." required /><br>
-                    <input type="text" name="account_name" placeholder="Account Name" required /><br>
-                    <input type="tel" name="mobile" placeholder="Mobile No." required /><br>
-                    <input type="text" name="ifsc" placeholder="IFSC code" required /><br>
-                    <input type="submit" value="ADD">
-                    <input type="reset" value="Reset">
-                </form>
+        <x-jet-validation-errors class="mb-4" />
+        <form method="POST" action='add'>
+            @csrf
+
+            <div>
+                <x-jet-label for="email" value="{{ __('Account No.') }}" />
+                <x-jet-input class="block mt-1 w-full" type="text" name="account_no" required autofocus />
             </div>
-        </div>
-    </div>
-</x-app-layout>
+            <div>
+                <x-jet-label for="email" value="{{ __('Accountant Name') }}" />
+                <x-jet-input class="block mt-1 w-full" type="text" name="accountant_name" required autofocus />
+            </div>
+            <div>
+                <x-jet-label for="email" value="{{ __('Mobile No.') }}" />
+                <x-jet-input class="block mt-1 w-full" type="tel" name="mobile" required autofocus />
+            </div>
+            <div>
+                <x-jet-label for="email" value="{{ __('IFSC code') }}" />
+                <x-jet-input class="block mt-1 w-full" type="text" name="ifsc" required autofocus />
+            </div>
+            <!-- <div class="block mt-4">
+                <label for="remember_me" class="flex items-center">
+                    <x-jet-checkbox id="remember_me" name="remember" />
+                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                </label>
+            </div> -->
+
+                <x-jet-button class="ml-4">
+                    {{ __('Add') }}
+                </x-jet-button>  
+            </div>
+        </form>
+    </x-jet-authentication-card>
+</x-guest-layout>

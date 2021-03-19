@@ -44,3 +44,5 @@ Route::get('view_account', [ViewAccount::class,'view_account'])->middleware('aut
 Route::post('make_payment',[MakePayment::class,'make_payment']);
 
 Route::get('remove_account{account_no}',[RemoveAccount::class,'removeAccount']);
+
+Route::get('transaction_history', [MakePayment::class,'transactionHistory'])->middleware('auth')->name('transaction_history');
