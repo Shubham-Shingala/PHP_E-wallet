@@ -16,10 +16,6 @@
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
                 </div>
-<<<<<<< HEAD
-            </div>
-
-=======
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('view_account') }}" :active="request()->routeIs('view_account')">
                         {{ __('View Account') }}
@@ -37,7 +33,6 @@
                 </div>
             </div>
             
->>>>>>> fa0981a5bb569547121c497be90b0034831e4163
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
