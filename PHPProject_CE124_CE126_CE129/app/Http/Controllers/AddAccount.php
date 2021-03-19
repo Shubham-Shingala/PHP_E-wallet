@@ -13,7 +13,7 @@ class AddAccount extends Controller
         $username = Auth::user();
         $user = new Account;
         $user->account_no = $req->account_no;
-        $user->account_name = $req->account_name;
+        $user->accountant_name = $req->accountant_name;
         $user->mobile_no = $req->mobile;
         $user->ifsc = $req->ifsc;
         $user->email = $username->email;

@@ -40,7 +40,7 @@
                     <table border="2">
                         <tr>
                             <td>{{$item->account_no}}</td>
-                            <td>{{$item->account_name}}</td>
+                            <td>{{$item->accountant_name}}</td>
                             <td>{{$item->mobile_no}}</td>
                             <td>{{$item->ifsc}}</td>
                             <td>{{$item->email}}</td>

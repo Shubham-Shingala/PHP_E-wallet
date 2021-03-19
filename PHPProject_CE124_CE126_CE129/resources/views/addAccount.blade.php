@@ -32,7 +32,7 @@
                 <form action="add" method="POST">
                     @csrf
                     <input type="text" name="account_no" max_length="14" placeholder="Account No." required /><br>
-                    <input type="text" name="account_name" placeholder="Account Name" required /><br>
+                    <input type="text" name="accountant_name" placeholder="Accountant Name" required /><br>
                     <input type="tel" name="mobile" placeholder="Mobile No." required /><br>
                     <input type="text" name="ifsc" placeholder="IFSC code" required /><br>
                     <input type="submit" value="ADD">

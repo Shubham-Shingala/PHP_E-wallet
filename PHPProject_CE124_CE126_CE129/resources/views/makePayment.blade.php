@@ -48,6 +48,7 @@
                 <td><input type="submit" value="Pay"> <input type="reset" value="Reset"></td>
             </tr>
         </table>
+        <h2 align="center"> {!! Session::has('message') ? Session::get("message") : '' !!} </h2>
     </form>
     
 </x-app-layout>
