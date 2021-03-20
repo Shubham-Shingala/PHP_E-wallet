@@ -28,30 +28,28 @@
         <x-jet-validation-errors class="mb-4" />
         <form method="POST" action='add'>
             @csrf
-
             <div>
                 <x-jet-label for="email" value="{{ __('Account No.') }}" />
                 <x-jet-input class="block mt-1 w-full" type="text" name="account_no" required autofocus />
             </div>
+            <br>
             <div>
                 <x-jet-label for="email" value="{{ __('Accountant Name') }}" />
                 <x-jet-input class="block mt-1 w-full" type="text" name="accountant_name" required autofocus />
             </div>
+            <br>
             <div>
                 <x-jet-label for="email" value="{{ __('Mobile No.') }}" />
                 <x-jet-input class="block mt-1 w-full" type="tel" name="mobile" required autofocus />
             </div>
+            <br>
             <div>
                 <x-jet-label for="email" value="{{ __('IFSC code') }}" />
                 <x-jet-input class="block mt-1 w-full" type="text" name="ifsc" required autofocus />
             </div>
-            <!-- <div class="block mt-4">
-                <label for="remember_me" class="flex items-center">
-                    <x-jet-checkbox id="remember_me" name="remember" />
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div> -->
-
+            <br>
+            <div align="right">
+                <a href="view_account"> <u> View Account </u> </a>
                 <x-jet-button class="ml-4">
                     {{ __('Add') }}
                 </x-jet-button>  

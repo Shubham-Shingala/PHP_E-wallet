@@ -39,10 +39,20 @@
                 </select><br></td>
             </tr>
             <tr>
-                <td><input type="text" placeholder="Account No." name="to" required><br></td>
+
+                <td><input type="text" required name="to" value=<?php 
+                    if(isset($account_no)){
+                        echo $account_no;
+                    }
+                    ?>
+                ><br></td>
             </tr>
             <tr>
-                <td><input type="number" name="amount" placeholder="Amount" required><br></td>
+                <td><input type="number" name="amount" required value=<?php 
+                    if(isset($amount)){
+                        echo $amount;
+                    }
+                    ?>><br></td>
             </tr>
             <tr>
                 <td><input type="submit" value="Pay"> <input type="reset" value="Reset"></td>

@@ -5,6 +5,7 @@ use App\Http\Controllers\AddAccount;
 use App\Http\Controllers\ViewAccount;
 use App\Http\Controllers\MakePayment;
 use App\Http\Controllers\RemoveAccount;
+use App\Http\Controllers\ManageRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -46,3 +47,18 @@ Route::post('make_payment',[MakePayment::class,'make_payment']);
 Route::get('remove_account{account_no}',[RemoveAccount::class,'removeAccount']);
 
 Route::get('transaction_history', [MakePayment::class,'transactionHistory'])->middleware('auth')->name('transaction_history');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/send_request', function () {
+    $email=Auth::user()->email;
+    $data=DB::select("select account_no from accounts where email='$email'");
+    return view('sendRequest',compact('data'));
+})->name('send_request');
+Route::post('send',[ManageRequest::class,'sendRequest']);
+
+Route::get('received_request', [ManageRequest::class,'receivedRequest'])->middleware('auth')->name('received_request');
+
+Route::get('pay{account_no},{amount}',function($account_no,$amount){
+    $email=Auth::user()->email;
+    $data=DB::select("select account_no from accounts where email='$email'");
+    return view('makePayment',compact('data'),['account_no'=>$account_no,'amount'=>$amount]);
+});

@@ -21,11 +21,6 @@
                         {{ __('View Account') }}
                     </x-jet-nav-link>
                 </div>
-                {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('addAccount') }}" :active="request()->routeIs('addAccount')">
-                        {{ __('Add Account') }}
-                    </x-jet-nav-link>
-                </div> --}}
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('makePayment') }}" :active="request()->routeIs('makePayment')">
                         {{ __('New Payment') }}
@@ -34,6 +29,16 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('transaction_history') }}" :active="request()->routeIs('transaction_history')">
                         {{ __('Transaction History') }}
+                    </x-jet-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('send_request') }}" :active="request()->routeIs('send_request')">
+                        {{ __('Send Request') }}
+                    </x-jet-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('received_request') }}" :active="request()->routeIs('received_request')">
+                        {{ __('Received Request') }}
                     </x-jet-nav-link>
                 </div>
             </div>

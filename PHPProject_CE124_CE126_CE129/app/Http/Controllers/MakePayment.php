@@ -40,7 +40,7 @@ class MakePayment extends Controller
                     $transaction->amount=$amount;
                     $transaction->save();
             }
-            return Redirect::back()->with('message', 'Paid Sucssesfull');        
+            return Redirect::back()->with('message', 'Paid Sucssesfull');
         }
         else{
             return Redirect::back()->with('message', 'Account does not exist');
