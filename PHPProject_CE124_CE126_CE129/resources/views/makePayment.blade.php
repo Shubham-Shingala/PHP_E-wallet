@@ -55,6 +55,11 @@
                     ?>><br></td>
             </tr>
             <tr>
+                <input type="number" name="received_req_id" hidden  value=<?php 
+                if(isset($id)){
+                    echo $id;
+                }
+                ?>>
                 <td><input type="submit" value="Pay"> <input type="reset" value="Reset"></td>
             </tr>
         </table>

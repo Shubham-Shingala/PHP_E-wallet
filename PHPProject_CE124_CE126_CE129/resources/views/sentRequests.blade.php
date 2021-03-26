@@ -10,21 +10,21 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <table align='center'>
                     <tr>
-                        <th>Sender Email</th>
-                        <th>Sender Account Number</th>
+                        <th>Your Account Number</th>
+                        <th>Requseted To (Email)</th>
                         <th>Amount</th>
-                        <th>Request Date and Time</th>
+                        <th>Request Date And Time</th>
                         <th>Status</th>
                     </tr>           
                 @foreach ($requests as $request)        
                         <tr>
-                            <td>{{$request->sender_email}}</td>
                             <td>{{$request->sender_account_no}}</td>
+                            <td>{{$request->receiver_email}}</td>
                             <td>{{$request->amount}}</td>
                             <td>{{$request->created_at}}</td>
                             <td>
                                 @if(!$request->paid)
-                                    <a href="pay{{$request->sender_account_no}},{{$request->amount}},{{$request->id}}">Pay</a>
+                                    Not Paid
                                 @else
                                     Paid
                                 @endif

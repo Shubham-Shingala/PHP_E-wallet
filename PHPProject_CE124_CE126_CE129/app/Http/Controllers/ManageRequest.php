@@ -36,4 +36,10 @@ class ManageRequest extends Controller
         $requests=DB::table('manage__requests')->where('receiver_email',$receiver_email)->orderBy('created_at','desc')->get();
         return view('receivedRequest',compact('requests'));
     }
+
+    function sentRequests(){
+        $sender_email=Auth::user()->email;
+        $requests=DB::table('manage__requests')->where('sender_email',$sender_email)->orderBy('created_at','desc')->get();
+        return view('sentRequests',compact('requests'));
+    }
 }
