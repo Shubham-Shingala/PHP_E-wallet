@@ -39,8 +39,10 @@ class MakePayment extends Controller
                     $transaction->recipient_name=$recipient_name;
                     $transaction->amount=$amount;
                     $transaction->save();
+                    if(isset($req->received_req_id))
+                        $received_req_id=DB::table('manage__requests')->where('id', $req->received_req_id)->limit(1)->update(array('paid' => '1'));
             }
-            return Redirect::back()->with('message', 'Paid Sucssesfull');
+            return Redirect("/dashboard")->with('message', 'Paid Sucssesfull');
         }
         else{
             return Redirect::back()->with('message', 'Account does not exist');

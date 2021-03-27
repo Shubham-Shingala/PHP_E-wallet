@@ -8,6 +8,7 @@ use App\Http\Controllers\RemoveAccount;
 use App\Http\Controllers\ManageRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,9 +57,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/send_request', function (
 Route::post('send',[ManageRequest::class,'sendRequest']);
 
 Route::get('received_request', [ManageRequest::class,'receivedRequest'])->middleware('auth')->name('received_request');
-
-Route::get('pay{account_no},{amount}',function($account_no,$amount){
+Route::post('pay',function(Request $req){
     $email=Auth::user()->email;
     $data=DB::select("select account_no from accounts where email='$email'");
-    return view('makePayment',compact('data'),['account_no'=>$account_no,'amount'=>$amount]);
+    return view('makePayment',compact('data'),['account_no'=>$req->account_no,'amount'=>$req->amount,'id'=>$req->id]);
 });
+Route::get('sent_requests', [ManageRequest::class,'sentRequests'])->middleware('auth')->name('sent_requests');

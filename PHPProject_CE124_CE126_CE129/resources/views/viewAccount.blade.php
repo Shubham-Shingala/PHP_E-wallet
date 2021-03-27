@@ -35,7 +35,13 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <a href="addAccount">Add Account</a>
+                <form action="addAccount" >
+                @csrf
+                <x-jet-button class="ml-4">
+                    {{ __('Add Account') }}
+                </x-jet-button>
+                </form>
+                <!-- <a href="addAccount">Add Account</a> -->
                 <table align='center' border="2">
                     <tr>
                         <th>account_no</th>

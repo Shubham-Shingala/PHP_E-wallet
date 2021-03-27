@@ -1,64 +1,40 @@
-{{-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <form action="make_payment" method="POST">
-        @csrf
-        <select id="from" name="from" required>
-            @foreach ($data as $i)
-                <option value= {{ $i->account_no }}>{{ $i->account_no }}</option>    
-            @endforeach
-        </select><br>
-        <input type="text" placeholder="Account No." name="to" required><br>
-        <input type="number" name="amount" placeholder="Amount" required><br>
-        <input type="submit" value="Pay">
-        <input type="reset" value="Reset">
-    </form>
-</body>
-</html> --}}
+<x-guest-layout>
+    <x-jet-authentication-card>
+        <x-slot name="logo">
+            <x-jet-authentication-card-logo />
+        </x-slot>
 
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Make Payment') }}
-        </h2>
-    </x-slot>
-    <form action="make_payment" method="POST">
-        @csrf
-        <table align="center">
-            <tr>
-                <td><select id="from" name="from" required>
-                    @foreach ($data as $i)
-                        <option value= {{ $i->account_no }}>{{ $i->account_no }}</option>    
-                    @endforeach
-                </select><br></td>
-            </tr>
-            <tr>
+        <h1 align="center" style="color:red;"><b>{!! Session::has('message') ? Session::get("message") : '' !!}</b></h1>
 
-                <td><input type="text" required name="to" value=<?php 
-                    if(isset($account_no)){
-                        echo $account_no;
-                    }
-                    ?>
-                ><br></td>
-            </tr>
-            <tr>
-                <td><input type="number" name="amount" required value=<?php 
-                    if(isset($amount)){
-                        echo $amount;
-                    }
-                    ?>><br></td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="Pay"> <input type="reset" value="Reset"></td>
-            </tr>
-        </table>
-        <h2 align="center"> {!! Session::has('message') ? Session::get("message") : '' !!} </h2>
-    </form>
-    
-</x-app-layout>
+        <x-jet-validation-errors class="mb-4" />
+        <form action="make_payment" method="POST">
+            @csrf
+            <div>
+                <x-jet-label for="email" value="{{ __('Select Your Account No.') }}" />
+                <select id="from" class="block mt-1 w-full" name="from" required autofocus >
+                @foreach ($data as $i)
+                    <option value= {{ $i->account_no }}>{{ $i->account_no }}</option>
+                @endforeach
+                </select>
+            </div>
+            <br>
+            <div>
+                <x-jet-label for="email" value="{{ __('(Pay To)Accountant No.') }}" />
+                <input class="block mt-1 w-full" type="text" required autofocus name="to" value=<?php if(isset($account_no)) {echo $account_no;}?>>
+            </div>
+            <br>
+            <div>
+                <x-jet-label for="email" value="{{ __('Amount') }}" />
+                <input class="block mt-1 w-full" type="number" required autofocus name="amount" value=<?php if(isset($amount)) {echo $amount;}?>>
+            </div>
+            <br>
+            <input type="number" name="received_req_id" hidden  value=<?php if(isset($id)) {echo $id;}?>>
+            <div align="right">
+                <a href="view_account"> <u> View Account </u> </a>
+                <x-jet-button class="ml-4">
+                    {{ __('Pay') }}
+                </x-jet-button>  
+            </div>
+        </form>
+    </x-jet-authentication-card>
+</x-guest-layout>

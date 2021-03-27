@@ -5,6 +5,9 @@
         </x-slot> -->
 
         <x-jet-validation-errors class="mb-4" />
+        
+        <h1 align="center" style="color:red;"><b>{!! Session::has('message') ? Session::get("message") : '' !!}</b></h1><br>
+
         <form method="POST" action='send'>
             @csrf
             <div>
