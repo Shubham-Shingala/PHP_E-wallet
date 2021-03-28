@@ -1,29 +1,25 @@
-{{-- <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <style>
+        table {
+        border-collapse: collapse;
+        width: 100%;
+        }
+
+        th, td {
+        text-align: left;
+        padding: 8px;
+        }
+
+        tr:nth-child(even){background-color: #f2f2f2}
+
+        th {
+        background-color: #3871db;
+        color: white;
+        }
+    </style>
 </head>
-<body>
-    <a href="addAccount">Add Account</a>
-    @foreach ($data as $item)
-        <table border="1">
-            <tr>
-                <td>{{$item->account_no}}</td>
-                <td>{{$item->account_name}}</td>
-                <td>{{$item->mobile_no}}</td>
-                <td>{{$item->ifsc}}</td>
-                <td>{{$item->email}}</td>
-                <td>{{$item->balance}}</td>
-                <td><a href="remove_account{{$item->account_no}}">Remove Account</a>
-            </tr>
-        </table>
-    @endforeach
-    {!! Session::has('message') ? Session::get("message") : '' !!}
-</body>
-</html> --}}
+</html>
 
 <x-app-layout>
     <x-slot name="header">
@@ -31,11 +27,11 @@
             {{ __('View Account') }}
         </h2>
     </x-slot>
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <form action="addAccount" >
+                
+                <form action="addAccount">
                 @csrf
                 <x-jet-button class="ml-4">
                     {{ __('Add Account') }}
@@ -50,7 +46,7 @@
                         <th>ifsc</th>
                         <th>email</th>
                         <th>balance</th>
-                        
+                        <th> </th>
                     </tr>           
                 @foreach ($data as $item)        
                         <tr>
@@ -67,5 +63,6 @@
                 {!! Session::has('message') ? Session::get("message") : '' !!}
             </div>
         </div>
+        
     </div>
 </x-app-layout>
