@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Transaction;
 use App\Models\Account;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class MakePayment extends Controller
 {
@@ -39,8 +40,20 @@ class MakePayment extends Controller
                     $transaction->recipient_name=$recipient_name;
                     $transaction->amount=$amount;
                     $transaction->save();
-                    if(isset($req->received_req_id))
+                    if(isset($req->received_req_id)) {
                         $received_req_id=DB::table('manage__requests')->where('id', $req->received_req_id)->limit(1)->update(array('paid' => '1'));
+                    }
+                    
+                    $data2 = array('name'=>$recipient_name,'sender_account_no'=>$from,'recipient_account_no'=>$to,'amount'=>$amount,'sender_name'=>Auth::user()->name,'recipient_bal'=>$toB);
+                    Mail::send(['text'=>'mail_recipient'], $data2, function($message) {
+                        $message->to($recipient_email)->subject('Payment done.');
+                        $message->from('flightbookingsystem43@gmail.com','E-wallet');
+                    });
+                    $data1 = array('name'=>Auth::user()->name,'sender_account_no'=>$from,'recipient_account_no'=>$to,'amount'=>$amount,'recipient_name'=>$recipient_name,'sender_bal'=>$fromB);
+                    Mail::send(['text'=>'mail_sender'], $data1, function($message) {
+                        $message->to(Auth::user()->email)->subject('Payment done.');
+                        $message->from('flightbookingsystem43@gmail.com','E-wallet');
+                    });
             }
             return Redirect("/dashboard")->with('message', 'Paid Sucssesfull');
         }

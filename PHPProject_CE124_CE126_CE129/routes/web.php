@@ -6,6 +6,7 @@ use App\Http\Controllers\ViewAccount;
 use App\Http\Controllers\MakePayment;
 use App\Http\Controllers\RemoveAccount;
 use App\Http\Controllers\ManageRequest;
+use App\Http\Controllers\MailController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
