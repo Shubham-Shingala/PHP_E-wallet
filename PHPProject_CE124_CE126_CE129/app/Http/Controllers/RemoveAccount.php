@@ -12,7 +12,7 @@ class RemoveAccount extends Controller
 {
     function removeAccount($account_no){
         $data=DB::table('accounts')->where('account_no', $account_no)->delete();
-        session()->flash('message','account removed.');
+        session()->flash('message','Account Removed.');
         return redirect()->action([ViewAccount::class,'view_account']);
     }
 }

@@ -21,7 +21,7 @@ class AddAccount extends Controller
             $user->ifsc = $req->ifsc;
             $user->email = $username->email;
             $user->save();
-            session()->flash('message','account added.');
+            session()->flash('message','Account Added.');
             return redirect()->action([ViewAccount::class,'view_account']);
         }
         else {

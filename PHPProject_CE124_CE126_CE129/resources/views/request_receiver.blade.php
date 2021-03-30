@@ -7,10 +7,8 @@
     <title>Document</title>
 </head>
 <body>
-    Hi, {{ $data1['name'] }}
+    Hi, {{$data['receiver_name']}}
     <br><br>
-    Rs. {{$data1['amount']}} transferred from A/c {{$data1['sender_account_no']}} to A/c {{$data1['recipient_account_no']}} ({{ $data1['recipient_name'] }}).
-    <br>
-    Total Available Balance : {{$data1['sender_bal']}}
+    {{$data['sender_name']}} ({{$data['sender_email']}}) has requested money from you on E-wallet. On approving the request, Rs. {{$data['amount']}} (A/c {{$data['sender_account_no']}}) will be debited from your account.
 </body>
 </html>

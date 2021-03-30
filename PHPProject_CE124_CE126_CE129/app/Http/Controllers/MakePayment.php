@@ -9,6 +9,8 @@ use App\Models\Transaction;
 use App\Models\Account;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\RecipientMail;
+use App\Mail\SenderMail;
 
 class MakePayment extends Controller
 {
@@ -44,18 +46,13 @@ class MakePayment extends Controller
                         $received_req_id=DB::table('manage__requests')->where('id', $req->received_req_id)->limit(1)->update(array('paid' => '1'));
                     }
                     
-                    $data2 = array('name'=>$recipient_name,'sender_account_no'=>$from,'recipient_account_no'=>$to,'amount'=>$amount,'sender_name'=>Auth::user()->name,'recipient_bal'=>$toB);
-                    Mail::send(['text'=>'mail_recipient'], $data2, function($message) {
-                        $message->to($recipient_email)->subject('Payment done.');
-                        $message->from('flightbookingsystem43@gmail.com','E-wallet');
-                    });
                     $data1 = array('name'=>Auth::user()->name,'sender_account_no'=>$from,'recipient_account_no'=>$to,'amount'=>$amount,'recipient_name'=>$recipient_name,'sender_bal'=>$fromB);
-                    Mail::send(['text'=>'mail_sender'], $data1, function($message) {
-                        $message->to(Auth::user()->email)->subject('Payment done.');
-                        $message->from('flightbookingsystem43@gmail.com','E-wallet');
-                    });
+                    Mail::to(Auth::user()->email)->send(new SenderMail($data1));
+                    $data2 = array('name'=>$recipient_name,'sender_account_no'=>$from,'recipient_account_no'=>$to,'amount'=>$amount,'sender_name'=>Auth::user()->name,'recipient_bal'=>$toB);
+                    Mail::to($recipient_email)->send(new RecipientMail($data2));
+
             }
-            return Redirect("/dashboard")->with('message', 'Paid Sucssesfull');
+            return Redirect("/view_account")->with('message', 'Payment is done Successfully');
         }
         else{
             return Redirect::back()->with('message', 'Account does not exist');

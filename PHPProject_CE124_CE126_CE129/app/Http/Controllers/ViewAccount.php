@@ -12,6 +12,7 @@ class ViewAccount extends Controller
     function view_account(){
         $email=Auth::user()->email;
         $data=DB::select("select * from accounts where email='$email'");
-        return view('viewAccount',compact('data'));
+        $account_existance=DB::table('accounts')-> where('email',$email)->count();
+        return view('viewAccount',compact('data'),compact('account_existance'));
     }
 }

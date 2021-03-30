@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Manage_Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\sendRequest;
+use App\Mail\ReceiveRequest;
 
 class ManageRequest extends Controller
 {
@@ -23,8 +26,18 @@ class ManageRequest extends Controller
             $request->receiver_email=$receiver_email;
             $request->amount=$amount;
             $request->save();
+            $receiver_name=DB::table('users')->select('name')->where('email',$receiver_email)->value('name');
+            $data=array(
+                'sender_account_no'=>$sender_account_no,
+                'sender_email'=>$sender_email,
+                'receiver_email'=>$receiver_email,
+                'amount'=>$amount,
+                'sender_name'=>Auth::user()->name,
+                'receiver_name'=>$receiver_name
+            );
+            Mail::to(Auth::user()->email)->send(new SendRequest($data));
+            Mail::to($receiver_email)->send(new ReceiveRequest($data));
             return Redirect::back()->with('message', 'Request sended successfully.');
-            // return Redirect("/dashboard")->with('message', 'Request sended successfully.');
         }
         else{
             return Redirect::back()->with('message', 'No Such Receiver.');
