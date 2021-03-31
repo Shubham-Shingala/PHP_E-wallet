@@ -1,28 +1,31 @@
 <x-guest-layout>
     <x-jet-authentication-card>
         
-        <h1 align="center" style="color:red;"><b>{!! Session::has('message') ? Session::get("message") : '' !!}</b></h1>
-
+        <h1 align="center" style="color:red;"><b>
+        @if(Session::get("message") === "Account does not exist")
+            {!! Session::has('message') ? Session::get("message") : '' !!}
+        @endif
+        </b></h1><br>
         <x-jet-validation-errors class="mb-4" />
         <form action="make_payment" method="POST">
             @csrf
             <div>
-                <x-jet-label for="email" value="{{ __('Select Your Account No.') }}" />
-                <select id="from" class="block mt-1 w-full" name="from" required autofocus >
-                @foreach ($data as $i)
-                    <option value= {{ $i->account_no }}>{{ $i->account_no }}</option>
-                @endforeach
+                <select id="format" class="block mt-1 w-full" name="from" required autofocus >
+                    <option value="">Select Your Account No.</option>
+                    @foreach ($data as $i)
+                        <option value= {{ $i->account_no }}>{{ $i->account_no }}</option>
+                    @endforeach
                 </select>
             </div>
             <br>
             <div>
-                <x-jet-label for="email" value="{{ __('(Pay To)Accountant No.') }}" />
-                <input class="block mt-1 w-full" type="text" required autofocus name="to" value=<?php if(isset($account_no)) {echo $account_no;}?>>
+                <x-jet-label for="email" value="{{ __('(Pay To)Account No.') }}" />
+                <input class="block mt-1 w-full" type="text" required autofocus name="to" maxlength="14" minlength="12"  pattern="[0-9]{12-14}" title="Please Enter 12-14 digits Account Number" value=<?php if(isset($account_no)) {echo $account_no;}?>>
             </div>
             <br>
             <div>
                 <x-jet-label for="email" value="{{ __('Amount') }}" />
-                <input class="block mt-1 w-full" type="number" required autofocus name="amount" value=<?php if(isset($amount)) {echo $amount;}?>>
+                <input class="block mt-1 w-full" type="number" required autofocus name="amount" min="1" value=<?php if(isset($amount)) {echo $amount;}?>>
             </div>
             <br>
             <input type="number" name="received_req_id" hidden  value=<?php if(isset($id)) {echo $id;}?>>

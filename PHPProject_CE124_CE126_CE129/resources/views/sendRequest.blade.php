@@ -21,13 +21,13 @@
             </div>
             <br>
             <div>
-                <x-jet-label for="email" value="{{ __('Request To.. (E-mail)') }}" />
+                <x-jet-label for="email" value="{{ __('Request To (E-mail)') }}" />
                 <x-jet-input class="block mt-1 w-full" type="email" name="receiver_email" required autofocus />
             </div>
             <br>
             <div>
                 <x-jet-label for="email" value="{{ __('Amount') }}" />
-                <x-jet-input class="block mt-1 w-full" type="number" name="amount" required autofocus />
+                <x-jet-input class="block mt-1 w-full" type="number" min=1 name="amount" required autofocus />
             </div>
             <br>
             <div align="right">

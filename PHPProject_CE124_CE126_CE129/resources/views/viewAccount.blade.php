@@ -54,7 +54,7 @@
             {{ __('View Account') }}
         </h2>
     </x-slot>
-    @if(Session::has('message') and (Session::get("message")==='Account Added.' or Session::get("message")==='Payment is done Successfully'))
+    @if(Session::has('message') and Session::get("message")==='Account Added.')
         <div class="alert1">
             <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
             {!! Session::has('message') ? Session::get("message") : '' !!}
@@ -69,13 +69,14 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                <br>
                 <form action="addAccount">
                 @csrf
                 <x-jet-button class="ml-4">
                     {{ __('Add Account') }}
                 </x-jet-button>
                 </form>
-                @if($account_existance)
+                @if($account_existence)
                     <table align='center' border="2">
                         <tr>
                             <th>account_no</th>

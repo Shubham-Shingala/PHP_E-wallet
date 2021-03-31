@@ -37,7 +37,7 @@ class ManageRequest extends Controller
             );
             Mail::to(Auth::user()->email)->send(new SendRequest($data));
             Mail::to($receiver_email)->send(new ReceiveRequest($data));
-            return Redirect::back()->with('message', 'Request sended successfully.');
+            return Redirect('sent_requests')->with('message', 'Request Sent Successfully.');
         }
         else{
             return Redirect::back()->with('message', 'No Such Receiver.');
@@ -47,12 +47,14 @@ class ManageRequest extends Controller
     function receivedRequest(){
         $receiver_email=Auth::user()->email;
         $requests=DB::table('manage__requests')->where('receiver_email',$receiver_email)->orderBy('created_at','desc')->get();
-        return view('receivedRequest',compact('requests'));
+        $requests_existence=$requests->count();
+        return view('receivedRequest',compact('requests'),compact('requests_existence'));
     }
 
     function sentRequests(){
         $sender_email=Auth::user()->email;
         $requests=DB::table('manage__requests')->where('sender_email',$sender_email)->orderBy('created_at','desc')->get();
-        return view('sentRequests',compact('requests'));
+        $requests_existence=$requests->count();
+        return view('sentRequests',compact('requests'),compact('requests_existence'));
     }
 }

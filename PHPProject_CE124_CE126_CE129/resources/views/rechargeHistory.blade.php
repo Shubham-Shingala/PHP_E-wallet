@@ -44,49 +44,40 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Transaction History') }}
+            {{ __('Recharge History') }}
         </h2>
     </x-slot>
-    @if(Session::has('message') and Session::get("message")==='Payment is done Successfully')
+    @if(Session::has('message') and Session::get("message")==='Recharge is done Successfully')
         <div class="alert">
             <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
             {!! Session::has('message') ? Session::get("message") : '' !!}
         </div>
     @endif
-    
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                @if(isset($transactions))
+                @if($recharges_existence)
                     <table align='center' border='2'>
                         <tr>
-                            <th>Sender Account No.</th>
-                            <th>Recipient Account No.</th>
-                            <th>Amount</th>
-                            <th>Sender Name</th>
-                            <th>Recipient Name</th>
-                            <th>Transaction Time</th>
+                            <th>Mobile No.</th>
+                            <th>Account No.</th>
+                            <th>Plan</th>
+                            <th>Mobile Operator</th>
+                            <th>Recharge Time</th>
                         </tr>
-                    @foreach($transactions as $i)
+                    @foreach($recharges as $i)
                         <tr>
-                            <td>{{$i->sender_account_no}}</td>
-                            <td>{{$i->recipient_account_no}}</td>
-                            <td>
-                            @if($i->sender_email == $user_email)
-                                -{{$i->amount}}
-                            @else
-                                +{{$i->amount}}
-                            @endif
-                            </td>
-                            <td>{{$i->sender_name}}</td>
-                            <td>{{$i->recipient_name}}</td>
+                            <td>{{$i->mobile_no}}</td>
+                            <td>{{$i->account_no}}</td>
+                            <td>{{$i->plan}}</td>
+                            <td>{{$i->mobile_operator}}</td>
                             <td>{{$i->created_at}}</td>
                         </tr>
                     @endforeach
                     </table>
                 @else
-                    <p align="center"><b>{!! Session::has('message') ? Session::get("message") : '' !!}</b></p>
-                @endif                
+                    <p align="center"><b>No Recharge Has Done Yet.</b></p>
+                @endif
             </div>
         </div>
     </div>

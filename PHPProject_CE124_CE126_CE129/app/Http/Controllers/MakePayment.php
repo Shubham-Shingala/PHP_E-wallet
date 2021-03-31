@@ -19,8 +19,8 @@ class MakePayment extends Controller
         $to = $req->to;
         $amount =$req->amount;
         
-        $recipient_existance=DB::table('accounts')-> where('account_no','=',$to)->count();
-        if($recipient_existance) {
+        $recipient_existence=DB::table('accounts')-> where('account_no','=',$to)->count();
+        if($recipient_existence) {
             $fromB=DB::table('accounts')->select('balance')->where('account_no', $from)->value('balance');
             $toB=DB::table('accounts')->select('balance')->where('account_no', $to)->value('balance');
             $recipient_email=DB::table('accounts')->select('email')->where('account_no', $to)->value('email');
@@ -52,7 +52,7 @@ class MakePayment extends Controller
                     Mail::to($recipient_email)->send(new RecipientMail($data2));
 
             }
-            return Redirect("/view_account")->with('message', 'Payment is done Successfully');
+            return Redirect("/transaction_history")->with('message', 'Payment is done Successfully');
         }
         else{
             return Redirect::back()->with('message', 'Account does not exist');
@@ -62,6 +62,12 @@ class MakePayment extends Controller
     function transactionHistory(){
         $user_email=Auth::user()->email;
         $transactions = DB::table('transactions')->where('sender_email',$user_email)->orwhere('recipient_email',$user_email)->orderBy('created_at','desc')->get();
-        return view('transactionHistory',compact('transactions'),compact('user_email'));
+        $transaction_existence = DB::table('transactions')->where('sender_email',$user_email)->orwhere('recipient_email',$user_email)->count();
+        if($transaction_existence)
+            return view('transactionHistory',compact('transactions'),compact('user_email'),compact('transaction_existence'));
+        else {
+            session()->flash('message', 'No Transaction Has Done Yet.');
+            return view("transactionHistory");      
+        }
     }
 }

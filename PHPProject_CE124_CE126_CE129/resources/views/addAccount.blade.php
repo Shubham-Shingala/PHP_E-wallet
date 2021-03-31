@@ -11,22 +11,22 @@
             @csrf
             <div>
                 <x-jet-label for="email" value="{{ __('Account No.') }}" />
-                <x-jet-input class="block mt-1 w-full" type="text" name="account_no" required autofocus />
+                <input class="block mt-1 w-full" type="text" name="account_no" required autofocus maxlength="14" minlength="12"  pattern="[0-9]{12-14}" title="Please Enter 12-14 digits Account Number"/>
             </div>
             <br>
             <div>
                 <x-jet-label for="email" value="{{ __('Accountant Name') }}" />
-                <x-jet-input class="block mt-1 w-full" type="text" name="accountant_name" required autofocus />
+                <input class="block mt-1 w-full" type="text" name="accountant_name" required autofocus />
             </div>
             <br>
             <div>
                 <x-jet-label for="email" value="{{ __('Mobile No.') }}" />
-                <x-jet-input class="block mt-1 w-full" type="tel" name="mobile" required autofocus />
+                <input class="block mt-1 w-full" type="tel" name="mobile" required autofocus maxlength="10" minlength="10" pattern="[0-9]{10}" title="Please Enter 10 digits Mobile Number"/>
             </div>
             <br>
             <div>
                 <x-jet-label for="email" value="{{ __('IFSC code') }}" />
-                <x-jet-input class="block mt-1 w-full" type="text" name="ifsc" required autofocus />
+                <input class="block mt-1 w-full" type="text" name="ifsc" maxlength="11" minlength="11" required autofocus />
             </div>
             <br>
             <div align="right">

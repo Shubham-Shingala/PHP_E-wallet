@@ -7,6 +7,7 @@ use App\Http\Controllers\MakePayment;
 use App\Http\Controllers\RemoveAccount;
 use App\Http\Controllers\ManageRequest;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\ManageRecharges;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -22,19 +23,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
-
-Route::post('add',[AddAccount::class,'add_account']);
-
 Route::get('addAccount',function(){
     return view('addAccount');
 });
+Route::post('add',[AddAccount::class,'add_account']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/makePayment', function () {
     $email=Auth::user()->email;
@@ -42,7 +34,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/makePayment', function ()
     return view('makePayment',compact('data'));
 })->name('makePayment');
 
-Route::get('view_account', [ViewAccount::class,'view_account'])->middleware('auth')->name('view_account');
+Route::get('view_account', [ViewAccount::class,'view_account'])->middleware(['auth:sanctum', 'verified'])->name('view_account');
 
 Route::post('make_payment',[MakePayment::class,'make_payment']);
 
@@ -64,3 +56,14 @@ Route::post('pay',function(Request $req){
     return view('makePayment',compact('data'),['account_no'=>$req->account_no,'amount'=>$req->amount,'id'=>$req->id]);
 });
 Route::get('sent_requests', [ManageRequest::class,'sentRequests'])->middleware('auth')->name('sent_requests');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/mobile_recharge', function () {
+    $email = Auth::user()->email;
+    $data = DB::select("select account_no from accounts where email='$email'");
+    return view('mobileRecharge',compact('data'));
+})->name('mobile_recharge');
+Route::post('recharge',[ManageRecharges::class,'recharge']);
+Route::get('recharge_history', [ManageRecharges::class,'rechargeHistory'])->middleware('auth')->name('recharge_history');
+
+
+
