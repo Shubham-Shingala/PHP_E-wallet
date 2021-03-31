@@ -5,9 +5,9 @@
         </x-slot> -->
 
         <x-jet-validation-errors class="mb-4" />
-        
-        <h1 align="center" style="color:red;"><b>{!! Session::has('message') ? Session::get("message") : '' !!}</b></h1><br>
-
+        @if(Session::get("message") === "Account does not exist")
+            <h1 align="center" style="color:red;"><b>{!! Session::has('message') ? Session::get("message") : '' !!}</b></h1><br>
+        @endif
         <form method="POST" action='send'>
             @csrf
             <div>
